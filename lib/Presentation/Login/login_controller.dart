@@ -7,29 +7,37 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    isLogin();
     super.onInit();
+  }
+
+  isLogin() {
+    if (controllerApp.checking.value) {
+      Get.toNamed('/home');
+    }
   }
 
   Future<void> login() async {
     final LoginResult result = await FacebookAuth.instance.login();
-
     if (result.status == LoginStatus.success) {
       controllerApp.accessToken = result.accessToken;
       printCredentials();
 
       var userData = await FacebookAuth.instance.getUserData();
       userData = userData;
+      Get.toNamed('/home');
     } else {
-      print(result.status);
-      print(result.message);
+      print('status' + result.status.toString());
+      print('messager' + result.message);
     }
 
-    controllerApp.checking = false;
+    // controllerApp.checking.value = false;
   }
 
   void printCredentials() {
     print(
-      controllerApp.prettyPrint(controllerApp.accessToken.toJson()),
+      'credential' +
+          controllerApp.prettyPrint(controllerApp.accessToken.toJson()),
     );
   }
 }

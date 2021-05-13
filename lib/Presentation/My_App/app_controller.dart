@@ -3,13 +3,12 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 
 class AppController extends GetxController {
-  final controllerApp = Get.find<AppController>();
   Map<String, dynamic> userData;
   AccessToken accessToken;
-  bool checking = true;
+  RxBool checking = true.obs;
   @override
   void onInit() {
-    // checkIfIsLogged();
+    checkIfIsLogged();
     super.onInit();
   }
 
@@ -23,19 +22,18 @@ class AppController extends GetxController {
     await FacebookAuth.instance.logOut();
     accessToken = null;
     userData = null;
+    Get.toNamed('/');
   }
 
   Future<void> checkIfIsLogged() async {
     var accessToken = await FacebookAuth.instance.accessToken;
-    checking = false;
+    checking.value = false;
     if (accessToken != null) {
-      print("is Logged:::: ${controllerApp.prettyPrint(accessToken.toJson())}");
+      print("is Logged:::: ${prettyPrint(accessToken.toJson())}");
       var userData = await FacebookAuth.instance.getUserData();
       print('dataaaa: $userData');
-      print(userData['name']);
       accessToken = accessToken;
       userData = userData;
-      // Get.toNamed('/home');
     }
   }
 }

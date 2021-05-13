@@ -8,36 +8,45 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     final controllerApp = Get.find<AppController>();
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          // Text(
-          //   controllerApp.userData != null
-          //       ? controllerApp.prettyPrint(controllerApp.userData)
-          //       : "NO LOGGED",
-          //   style: TextStyle(color: Colors.black),
-          // ),
-          new TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        body: Container(
+      color: Colors.black38,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Text(
+              controllerApp.userData != null
+                  ? controllerApp.prettyPrint(controllerApp.userData)
+                  : "NO LOGGED",
+              style: TextStyle(color: Colors.black),
             ),
-            onPressed: () {
-              controller.login();
-            },
-            child: new Text(
-              'Login with Facebook',
-              style: TextStyle(fontSize: 20),
+            Image.asset(
+              'assets/icons/logo.jpeg',
+              width: Get.width / 2,
+              height: Get.width / 2,
             ),
-          ),
-          new TextButton(
-            onPressed: () {
-              // controller.logOut();
-            },
-            child: new Text('Logout'),
-          ),
-        ],
+
+            new TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              ),
+              onPressed: () {
+                controller.login();
+              },
+              child: new Text(
+                'Login with Facebook',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            // new TextButton(
+            //   onPressed: () {
+            //     // controller.logOut();
+            //   },
+            //   child: new Text('Logout'),
+            // ),
+          ],
+        ),
       ),
     ));
   }
