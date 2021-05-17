@@ -13,7 +13,12 @@ ThemeData lightThemeData(BuildContext context) {
       colorScheme: ColorScheme.light(
           primary: kPrimaryColor,
           secondary: kSecondaryColor,
-          error: kErrorColor));
+          error: kErrorColor),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: kPrimaryColor,
+          selectedItemColor: kContentColorLightTheme.withOpacity(0.7),
+          unselectedItemColor: kContentColorLightTheme.withOpacity(0.32),
+          selectedIconTheme: IconThemeData(color: kPrimaryColor)));
 }
 
 ThemeData darkThemeData(BuildContext context) {
@@ -27,5 +32,10 @@ ThemeData darkThemeData(BuildContext context) {
       colorScheme: ColorScheme.dark().copyWith(
           primary: kPrimaryColor,
           secondary: kSecondaryColor,
-          error: kErrorColor));
+          error: kErrorColor),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: kPrimaryColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: kContentColorDarkTheme.withOpacity(0.32),
+          selectedIconTheme: IconThemeData(color: kPrimaryColor)));
 }

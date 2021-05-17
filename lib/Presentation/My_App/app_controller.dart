@@ -22,7 +22,7 @@ class AppController extends GetxController {
     await FacebookAuth.instance.logOut();
     accessToken = null;
     userData = null;
-    Get.toNamed('/');
+    Get.toNamed('/auth');
   }
 
   Future<void> checkIfIsLogged() async {
