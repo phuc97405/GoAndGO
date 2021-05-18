@@ -25,12 +25,26 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/phuc/WordSpaces/goandgo/android/app/keystore.jks')
+            storePassword '123456'
+            keyAlias 'key1'
+            keyPassword '123456'
+        }
+        release {
+            storeFile file('/home/phuc/WordSpaces/goandgo/android/app/keystore.jks')
+            storePassword '123456'
+            keyAlias 'key1'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 30
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.goandgo"
-        minSdkVersion 16
+        minSdkVersion 20
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -40,11 +54,11 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
     dependencies{
-         implementation 'com.facebook.android:facebook-login:[8.1)'
+        //  implementation 'com.facebook.android:facebook-login:[8.1)'
 
     }
 }
