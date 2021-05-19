@@ -21,7 +21,7 @@ class SignInOrSigUpController extends GetxController {
       Get.toNamed('/home');
     } else {
       print('status' + result.status.toString());
-      print('messager' + result.message);
+      print('messager' + result.message!);
     }
 
     // controllerApp.checking.value = false;
@@ -30,7 +30,7 @@ class SignInOrSigUpController extends GetxController {
   void printCredentials() {
     print(
       'credential' +
-          controllerApp.prettyPrint(controllerApp.accessToken.toJson()),
+          controllerApp.prettyPrint(controllerApp.accessToken!.toJson()),
     );
   }
 }

@@ -26,7 +26,7 @@ class Welcome extends GetView<GetxController> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .headline5
+                    .headline5!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               Spacer(),
@@ -35,8 +35,8 @@ class Welcome extends GetView<GetxController> {
                 style: TextStyle(
                     color: Theme.of(context)
                         .textTheme
-                        .bodyText1
-                        .color
+                        .bodyText1!
+                        .color!
                         .withOpacity(0.64)),
               ),
               FittedBox(
@@ -50,12 +50,12 @@ class Welcome extends GetView<GetxController> {
                             'Skip ',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(
                                     color: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
-                                        .color
+                                        .bodyText1!
+                                        .color!
                                         .withOpacity(0.8)),
                           ),
                           SizedBox(
@@ -66,8 +66,8 @@ class Welcome extends GetView<GetxController> {
                             size: 16,
                             color: Theme.of(context)
                                 .textTheme
-                                .bodyText1
-                                .color
+                                .bodyText1!
+                                .color!
                                 .withOpacity(0.8),
                           )
                         ],

@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
         theme: lightThemeData(context),
         darkTheme: darkThemeData(context),
         initialBinding: AppBinding(),
-        initialRoute: '/',
+        initialRoute: '/home',
         getPages: [
           GetPage(name: '/', page: () => Welcome(), binding: WelcomeBinding()),
           GetPage(

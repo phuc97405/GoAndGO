@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AppController extends GetxController {
-  Map<String, dynamic> userData;
-  AccessToken accessToken;
+  Map<String, dynamic>? userData;
+  AccessToken? accessToken;
   RxBool checking = true.obs;
   @override
   void onInit() {
+    permission();
     checkIfIsLogged();
+
     super.onInit();
   }
 
@@ -35,5 +38,15 @@ class AppController extends GetxController {
       accessToken = accessToken;
       userData = userData;
     }
+  }
+
+  permission() async {
+    if (await Permission.contacts.request().isGranted) {}
+
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.locationWhenInUse,
+    ].request();
+    print(statuses[Permission.location]);
   }
 }

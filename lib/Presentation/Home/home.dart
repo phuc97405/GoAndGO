@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomePage extends GetView<HomeController> {
   Completer<GoogleMapController> controllerGoogle = Completer();
+
   Widget build(BuildContext context) {
     // final controllerApp = Get.find<AppController>();
     return Scaffold(
@@ -17,11 +18,14 @@ class HomePage extends GetView<HomeController> {
         actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        mapType: MapType.normal,
         initialCameraPosition: controller.kGooglePlex,
-        onMapCreated: (GoogleMapController controllergoogle) {
-          controllerGoogle.complete(controllergoogle);
+        trafficEnabled: true,
+        onMapCreated: (GoogleMapController controller) {
+          controllerGoogle.complete(controller);
         },
+        myLocationEnabled: true,
+        zoomControlsEnabled: false,
       ),
       // ),
       floatingActionButton: FloatingActionButton(
@@ -29,6 +33,7 @@ class HomePage extends GetView<HomeController> {
         backgroundColor: kPrimaryColor,
         child: Icon(Icons.location_searching),
       ),
+
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
@@ -36,10 +41,13 @@ class HomePage extends GetView<HomeController> {
   BottomNavigationBar buildBottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      currentIndex: controller.selectionIndex.value,
-      onTap: (value) => {controller.selectionIndex.value = value},
+      currentIndex: controller.selectionIndex,
+      onTap: (value) => {controller.selectionIndex = value},
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: "Home",
+        ),
         BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
         BottomNavigationBarItem(icon: Icon(Icons.call), label: "Call"),
         BottomNavigationBarItem(
