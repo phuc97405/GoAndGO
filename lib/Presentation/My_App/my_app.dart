@@ -22,15 +22,21 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightThemeData(context),
+        defaultTransition: Transition.zoom,
         darkTheme: darkThemeData(context),
         initialBinding: AppBinding(),
-        initialRoute: '/home',
+        initialRoute: '/',
         getPages: [
-          GetPage(name: '/', page: () => Welcome(), binding: WelcomeBinding()),
           GetPage(
-              name: '/auth',
-              page: () => SignInAndSignUp(),
-              binding: SignInOrSignUpBinding()),
+              name: '/',
+              page: () => Welcome(),
+              binding: WelcomeBinding(),
+              transition: Transition.leftToRight),
+          GetPage(
+            name: '/auth',
+            page: () => SignInAndSignUp(),
+            binding: SignInOrSignUpBinding(),
+          ),
           GetPage(
               name: '/home', page: () => HomePage(), binding: HomeBinding()),
         ]);

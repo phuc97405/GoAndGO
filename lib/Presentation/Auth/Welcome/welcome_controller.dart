@@ -7,13 +7,6 @@ class WelcomeController extends GetxController {
   final controllerApp = Get.find<AppController>();
   @override
   void onInit() {
-    isLogin();
     super.onInit();
-  }
-
-  isLogin() {
-    if (controllerApp.checking.value) {
-      Get.toNamed('/home');
-    }
   }
 }

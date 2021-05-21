@@ -18,45 +18,123 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Home'),
-        actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
+        leading: Icon(Icons.menu_open),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: kDefaultPadding),
+            child: CircleAvatar(
+              backgroundColor: kContentColorDarkTheme,
+              child: CircleAvatar(
+                  radius: 18,
+                  backgroundImage: AssetImage('assets/images/user.jpg')),
+              radius: 20,
+            ),
+          ),
+        ],
       ),
       body: Stack(children: [
-        GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: controller.kGooglePlex,
-          trafficEnabled: true,
-          onMapCreated: (GoogleMapController controllergg) {
-            controller.controllerGoogle.complete(controllergg);
-          },
-          myLocationEnabled: true,
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: false,
+        Expanded(
+          child: GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: controller.kGooglePlex,
+              trafficEnabled: true,
+              onMapCreated: (GoogleMapController controllergg) {
+                controller.controllerGoogle.complete(controllergg);
+              },
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              markers: {
+                if (controller.listmarkers != null) controller.listmarkers!
+              },
+              onTap: (value) => {controller.addMarkers(value)}),
         ),
+        Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+                color: kPrimaryColor,
+                width: width,
+                height: height * 0.18,
+                child: Padding(
+                  padding: EdgeInsets.all(kDefaultPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Hi Damon',
+                        style: TextStyle(color: kContentColorDarkTheme),
+                      ),
+                      Text(
+                        'Bạn muốn đi đâu ?',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: kDefaultPadding,
+                            fontWeight: FontWeight.bold,
+                            color: kContentColorDarkTheme),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: TextField(
+                            autofocus: false,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              labelStyle: TextStyle(
+                                color: kContentColorLightTheme,
+                              ),
+                              filled: true,
+                              fillColor: kContentColorDarkTheme,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              hintText: 'Nhập vị trí',
+                            ),
+                          )),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          IconButton(
+                              highlightColor: Colors.red,
+                              splashColor: Colors.yellow,
+                              disabledColor: Colors.blue,
+                              onPressed: () {
+                                print('adasd');
+                              },
+                              icon: Icon(
+                                Icons.search,
+                                size: kDefaultPadding + 10,
+                                color: kContentColorDarkTheme,
+                              ))
+                        ],
+                      )
+                    ],
+                  ),
+                ))),
         Positioned(
           left: 0,
           bottom: 0,
           child: Container(
-            // color: kPrimaryColor,
             width: Get.width,
-            height: height * 0.1,
+            height: height * 0.07,
             child: Stack(
               children: [
                 CustomPaint(
-                  size: Size(width, height * 0.1),
+                  size: Size(width, height * 0.07),
                   painter: CustomBottom(),
                 ),
                 Center(
-                  heightFactor: 0.6,
+                  heightFactor: 0.7,
                   child: FloatingActionButton(
                       onPressed: () {
                         controllerApp.boolLocationDevice();
                         controller.currentLocation();
                       },
-                      backgroundColor: kPrimaryColor,
+                      backgroundColor: kContentColorDarkTheme,
                       child: Icon(
                         Icons.location_searching,
-                        size: 40,
+                        color: kErrorColor,
+                        size: height * 0.04,
                       ),
                       elevation: 0.1),
                 ),
@@ -68,28 +146,32 @@ class HomePage extends GetView<HomeController> {
                           onPressed: () {},
                           icon: Icon(
                             Icons.home,
-                            size: 40,
+                            color: kContentColorDarkTheme,
+                            size: kDefaultPadding,
                           )),
                       IconButton(
                           onPressed: () {},
                           icon: Icon(
                             Icons.people,
-                            size: 40,
+                            color: kContentColorDarkTheme,
+                            size: kDefaultPadding,
                           )),
                       SizedBox(
-                        width: width * 0.02,
+                        width: width * 0.04,
                       ),
                       IconButton(
                           onPressed: () {},
                           icon: Icon(
                             Icons.call,
-                            size: 40,
+                            color: kContentColorDarkTheme,
+                            size: kDefaultPadding,
                           )),
                       IconButton(
                           onPressed: () {},
                           icon: Icon(
-                            Icons.call,
-                            size: 40,
+                            Icons.account_box,
+                            color: kContentColorDarkTheme,
+                            size: kDefaultPadding,
                           ))
                     ],
                   ),
@@ -99,34 +181,8 @@ class HomePage extends GetView<HomeController> {
           ),
         )
       ]),
+      // ))
       // ),
-
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   // iconSize: 25,
-      //   // selectedFontSize: 10,
-      //   selectedItemColor: Colors.black,
-      //   unselectedItemColor: Colors.black54,
-      //   onTap: controller.changeTabBottom,
-      //   currentIndex: controller.selectionTabIndex,
-      //   items: [
-      //     _bottomNavigationBarItem(icon: CupertinoIcons.home, label: "Home"),
-      //     _bottomNavigationBarItem(
-      //         icon: CupertinoIcons.person_crop_circle_badge_checkmark,
-      //         label: "People"),
-      //     _bottomNavigationBarItem(icon: CupertinoIcons.phone, label: "Call"),
-      //     BottomNavigationBarItem(
-      //         icon: CircleAvatar(
-      //           backgroundImage: AssetImage('assets/images/user.jpg'),
-      //           radius: 14,
-      //         ),
-      //         label: 'Profile')
-      //   ],
-      // )
     );
-  }
-
-  _bottomNavigationBarItem({IconData? icon, String? label}) {
-    return BottomNavigationBarItem(icon: Icon(icon), label: label);
   }
 }

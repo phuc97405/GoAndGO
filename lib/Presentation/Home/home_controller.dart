@@ -9,6 +9,7 @@ class HomeController extends GetxController {
   final controllerApp = Get.find<AppController>();
   Completer<GoogleMapController> controllerGoogle = Completer();
   int selectionTabIndex = 0;
+  Marker? listmarkers;
 
   @override
   void onInit() {
@@ -50,5 +51,29 @@ class HomeController extends GetxController {
         zoom: 15.0,
       ),
     ));
+  }
+
+  Set<Marker> createMarker() {
+    return {
+      Marker(
+          markerId: MarkerId("marker_1"),
+          position: LatLng(10.85446819267671, 106.62622449789902),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          infoWindow: InfoWindow(title: 'Marker 1'),
+          rotation: 20),
+      Marker(
+        markerId: MarkerId("marker_2"),
+        position: LatLng(10.85446819267671, 106.64622449789902),
+      ),
+    };
+  }
+
+  addMarkers(LatLng pos) {
+    listmarkers = Marker(
+        markerId: MarkerId('myid'),
+        infoWindow: InfoWindow(title: 'my infdo'),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+        position: pos);
   }
 }

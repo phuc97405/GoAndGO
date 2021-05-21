@@ -24,6 +24,12 @@ class AppController extends GetxController {
     return pretty;
   }
 
+  isLogin() {
+    if (checking.value) {
+      Get.toNamed('/home');
+    }
+  }
+
   Future<void> logOut() async {
     await FacebookAuth.instance.logOut();
     accessToken = null;
@@ -46,6 +52,7 @@ class AppController extends GetxController {
       print('dataaaa: $userData');
       accessToken = accessToken;
       userData = userData;
+      Get.toNamed('/home');
     }
   }
 
@@ -54,6 +61,6 @@ class AppController extends GetxController {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.location,
     ].request();
-    print('location:  ${statuses[Permission.location]}');
+    print('permission location:  ${statuses[Permission.location]}');
   }
 }

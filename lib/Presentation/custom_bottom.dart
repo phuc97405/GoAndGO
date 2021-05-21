@@ -8,15 +8,15 @@ class CustomBottom extends CustomPainter {
     Paint paint = Paint()
       ..color = kPrimaryColor
       ..style = PaintingStyle.fill;
-    Path path = Path()..moveTo(0, 20);
-    path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.35, 0);
-    path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
+    Path path = Path()..moveTo(0, 5);
+    path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.32, 0);
+    path.quadraticBezierTo(size.width * 0.37, 0, size.width * 0.43, 20);
 
-    path.arcToPoint(Offset(size.width * 0.60, 20),
-        radius: Radius.circular(10.0), clockwise: false);
+    path.arcToPoint(Offset(size.width * 0.57, 20),
+        radius: Radius.circular(0.0), clockwise: false);
 
-    path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.65, 0);
-    path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
+    path.quadraticBezierTo(size.width * 0.63, 0, size.width * 0.67, 0);
+    path.quadraticBezierTo(size.width * 0.80, 0, size.width, 5);
 
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);

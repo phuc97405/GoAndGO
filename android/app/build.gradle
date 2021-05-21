@@ -26,12 +26,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     signingConfigs {
-        debug {
-            storeFile file('/home/phuc/WordSpaces/goandgo/android/app/keystore.jks')
-            storePassword '123456'
-            keyAlias 'key1'
-            keyPassword '123456'
-        }
+       
         release {
             storeFile file('/home/phuc/WordSpaces/goandgo/android/app/keystore.jks')
             storePassword '123456'
@@ -54,7 +49,7 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
     dependencies{
