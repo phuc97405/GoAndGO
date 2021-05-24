@@ -16,173 +16,197 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final controllerApp = Get.find<AppController>();
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: Icon(Icons.menu_open),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: kDefaultPadding),
-            child: CircleAvatar(
-              backgroundColor: kContentColorDarkTheme,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: Icon(Icons.menu_open),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: kDefaultPadding),
               child: CircleAvatar(
-                  radius: 18,
-                  backgroundImage: AssetImage('assets/images/user.jpg')),
-              radius: 20,
+                backgroundColor: kContentColorDarkTheme,
+                child: CircleAvatar(
+                    radius: 18,
+                    backgroundImage: AssetImage('assets/images/user.jpg')),
+                radius: 20,
+              ),
             ),
-          ),
-        ],
-      ),
-      body: Stack(children: [
-        Expanded(
-          child: GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: controller.kGooglePlex,
-              trafficEnabled: true,
-              onMapCreated: (GoogleMapController controllergg) {
-                controller.controllerGoogle.complete(controllergg);
-              },
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
-              markers: {
-                if (controller.listmarkers != null) controller.listmarkers!
-              },
-              onTap: (value) => {controller.addMarkers(value)}),
+          ],
         ),
-        Positioned(
-            left: 0,
-            top: 0,
-            child: Container(
-                color: kPrimaryColor,
-                width: width,
-                height: height * 0.18,
-                child: Padding(
-                  padding: EdgeInsets.all(kDefaultPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Hi Damon',
-                        style: TextStyle(color: kContentColorDarkTheme),
-                      ),
-                      Text(
-                        'Bạn muốn đi đâu ?',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: kDefaultPadding,
-                            fontWeight: FontWeight.bold,
-                            color: kContentColorDarkTheme),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Stack(children: [
+            Expanded(
+              child: GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: controller.kGooglePlex,
+                  trafficEnabled: true,
+                  onMapCreated: (GoogleMapController controllergg) {
+                    controller.controllerGoogle.complete(controllergg);
+                  },
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: false,
+                  markers: {
+                    if (controller.listmarkers != null) controller.listmarkers!
+                  },
+                  onTap: (value) => {
+                        FocusScope.of(context).requestFocus(FocusNode()),
+                        controller.addMarkers(value)
+                      }),
+            ),
+            Positioned(
+                left: 0,
+                top: 0,
+                child: Container(
+                    height: height * 0.18,
+                    width: width,
+                    child: Stack(children: [
+                      Container(
+                          height: height * 0.18 - 25,
+                          width: width,
+                          decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(35),
+                                  bottomRight: Radius.circular(35))),
+                          child: Padding(
+                              padding: EdgeInsets.all(kDefaultPadding),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'Hi PhucLee',
+                                    style: TextStyle(
+                                        color: kContentColorDarkTheme),
+                                  ),
+                                  Text(
+                                    'Bạn muốn đi đâu ?',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontSize: kDefaultPadding,
+                                        fontWeight: FontWeight.bold,
+                                        color: kContentColorDarkTheme),
+                                  ),
+                                  SizedBox(
+                                    height: kDefaultPadding,
+                                  ),
+                                ],
+                              ))),
+                      Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                              padding: EdgeInsets.only(
+                                  left: kDefaultPadding,
+                                  right: kDefaultPadding),
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(35)),
                               child: TextField(
-                            autofocus: false,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(
-                                color: kContentColorLightTheme,
-                              ),
-                              filled: true,
-                              fillColor: kContentColorDarkTheme,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              hintText: 'Nhập vị trí',
-                            ),
-                          )),
+                                autofocus: false,
+                                textAlign: TextAlign.left,
+                                decoration: InputDecoration(
+                                    labelStyle: TextStyle(
+                                      color: kContentColorLightTheme,
+                                    ),
+                                    filled: true,
+                                    fillColor: kContentColorDarkTheme,
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    border: InputBorder.none,
+                                    // border: OutlineInputBorder(
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(35)),
+                                    hintText: 'Search',
+                                    hintStyle: TextStyle(
+                                        color: kContentColorLightTheme
+                                            .withOpacity(0.3)),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          print('adasd');
+                                        },
+                                        icon: Icon(Icons.search,
+                                            color: kContentColorLightTheme
+                                                .withOpacity(0.3)))),
+                              )))
+                    ]))),
+            Positioned(
+              left: 0,
+              bottom: 0,
+              child: Container(
+                width: Get.width,
+                height: height * 0.07,
+                child: Stack(
+                  children: [
+                    CustomPaint(
+                      size: Size(width, height * 0.07),
+                      painter: CustomBottom(),
+                    ),
+                    Center(
+                      heightFactor: 0.7,
+                      child: FloatingActionButton(
+                          onPressed: () {
+                            controllerApp.boolLocationDevice();
+                            controller.currentLocation();
+                          },
+                          backgroundColor: kContentColorDarkTheme,
+                          child: Icon(
+                            Icons.location_searching,
+                            color: kErrorColor,
+                            size: height * 0.04,
+                          ),
+                          elevation: 0.1),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.home,
+                                color: kContentColorDarkTheme,
+                                size: kDefaultPadding,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.people,
+                                color: kContentColorDarkTheme,
+                                size: kDefaultPadding,
+                              )),
                           SizedBox(
-                            width: 10,
+                            width: width * 0.04,
                           ),
                           IconButton(
-                              highlightColor: Colors.red,
-                              splashColor: Colors.yellow,
-                              disabledColor: Colors.blue,
-                              onPressed: () {
-                                print('adasd');
-                              },
+                              onPressed: () {},
                               icon: Icon(
-                                Icons.search,
-                                size: kDefaultPadding + 10,
+                                Icons.call,
                                 color: kContentColorDarkTheme,
+                                size: kDefaultPadding,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.account_box,
+                                color: kContentColorDarkTheme,
+                                size: kDefaultPadding,
                               ))
                         ],
-                      )
-                    ],
-                  ),
-                ))),
-        Positioned(
-          left: 0,
-          bottom: 0,
-          child: Container(
-            width: Get.width,
-            height: height * 0.07,
-            child: Stack(
-              children: [
-                CustomPaint(
-                  size: Size(width, height * 0.07),
-                  painter: CustomBottom(),
-                ),
-                Center(
-                  heightFactor: 0.7,
-                  child: FloatingActionButton(
-                      onPressed: () {
-                        controllerApp.boolLocationDevice();
-                        controller.currentLocation();
-                      },
-                      backgroundColor: kContentColorDarkTheme,
-                      child: Icon(
-                        Icons.location_searching,
-                        color: kErrorColor,
-                        size: height * 0.04,
                       ),
-                      elevation: 0.1),
+                    )
+                  ],
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.home,
-                            color: kContentColorDarkTheme,
-                            size: kDefaultPadding,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.people,
-                            color: kContentColorDarkTheme,
-                            size: kDefaultPadding,
-                          )),
-                      SizedBox(
-                        width: width * 0.04,
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.call,
-                            color: kContentColorDarkTheme,
-                            size: kDefaultPadding,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.account_box,
-                            color: kContentColorDarkTheme,
-                            size: kDefaultPadding,
-                          ))
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        )
-      ]),
-      // ))
-      // ),
-    );
+              ),
+            )
+          ]),
+          // ))
+          // ),
+        ));
   }
 }
