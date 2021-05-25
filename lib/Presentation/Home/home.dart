@@ -42,17 +42,18 @@ class HomePage extends GetView<HomeController> {
                 initialCameraPosition: controller.initialLocation,
                 trafficEnabled: true,
                 onMapCreated: (GoogleMapController controllergg) {
-                  controller.controllerGoogle = controllergg;
+                  controller.controllerMap = controllergg;
                 },
                 myLocationEnabled: true,
                 myLocationButtonEnabled: false,
                 zoomControlsEnabled: false,
-                markers: {
-                  if (controller.listmarkers != null) controller.listmarkers!
-                },
+                markers: Set.of(
+                    (controller.marker != null) ? [controller.marker!] : []),
+                circles: Set.of(
+                    (controller.circle != null) ? [controller.circle!] : []),
                 onTap: (value) => {
-                      FocusScope.of(context).requestFocus(FocusNode()),
-                      controller.addMarkers(value)
+                      // FocusScope.of(context).requestFocus(FocusNode()),
+                      // controller.addMarkers(value)
                     }),
             Positioned(
                 left: 0,
@@ -147,7 +148,7 @@ class HomePage extends GetView<HomeController> {
                       heightFactor: 0.7,
                       child: FloatingActionButton(
                           onPressed: () {
-                            controllerApp.boolLocationDevice();
+                            // controllerApp.boolLocationDevice();
                             controller.currentLocation();
                           },
                           backgroundColor: kContentColorDarkTheme,

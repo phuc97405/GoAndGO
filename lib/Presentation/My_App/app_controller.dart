@@ -14,7 +14,7 @@ class AppController extends GetxController {
   void onInit() {
     permission();
     checkIfIsLogged();
-    boolLocationDevice();
+    // boolLocationDevice();
     super.onInit();
   }
 
@@ -37,11 +37,11 @@ class AppController extends GetxController {
     Get.toNamed('/auth');
   }
 
-  Future boolLocationDevice() async {
-    if (!await locationR.serviceEnabled()) {
-      locationR.requestService();
-    }
-  }
+  // Future boolLocationDevice() async {
+  //   if (!await locationR.serviceEnabled()) {
+  //     locationR.requestService();
+  //   }
+  // }
 
   Future<void> checkIfIsLogged() async {
     var accessToken = await FacebookAuth.instance.accessToken;
