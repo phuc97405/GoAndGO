@@ -37,25 +37,23 @@ class HomePage extends GetView<HomeController> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Stack(children: [
-            Expanded(
-              child: GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: controller.kGooglePlex,
-                  trafficEnabled: true,
-                  onMapCreated: (GoogleMapController controllergg) {
-                    controller.controllerGoogle.complete(controllergg);
-                  },
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: false,
-                  zoomControlsEnabled: false,
-                  markers: {
-                    if (controller.listmarkers != null) controller.listmarkers!
-                  },
-                  onTap: (value) => {
-                        FocusScope.of(context).requestFocus(FocusNode()),
-                        controller.addMarkers(value)
-                      }),
-            ),
+            GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: controller.initialLocation,
+                trafficEnabled: true,
+                onMapCreated: (GoogleMapController controllergg) {
+                  controller.controllerGoogle = controllergg;
+                },
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                zoomControlsEnabled: false,
+                markers: {
+                  if (controller.listmarkers != null) controller.listmarkers!
+                },
+                onTap: (value) => {
+                      FocusScope.of(context).requestFocus(FocusNode()),
+                      controller.addMarkers(value)
+                    }),
             Positioned(
                 left: 0,
                 top: 0,
@@ -105,30 +103,28 @@ class HomePage extends GetView<HomeController> {
                                   left: kDefaultPadding,
                                   right: kDefaultPadding),
                               height: 50,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(35)),
                               child: TextField(
                                 autofocus: false,
                                 textAlign: TextAlign.left,
+                                onTap: () {
+                                  controller.focusChange();
+                                },
                                 decoration: InputDecoration(
                                     labelStyle: TextStyle(
                                       color: kContentColorLightTheme,
                                     ),
                                     filled: true,
                                     fillColor: kContentColorDarkTheme,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    border: InputBorder.none,
-                                    // border: OutlineInputBorder(
-                                    //     borderRadius:
-                                    //         BorderRadius.circular(35)),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(35)),
                                     hintText: 'Search',
                                     hintStyle: TextStyle(
                                         color: kContentColorLightTheme
                                             .withOpacity(0.3)),
                                     suffixIcon: IconButton(
                                         onPressed: () {
-                                          print('adasd');
+                                          // Get.toNamed('/searchadress');
                                         },
                                         icon: Icon(Icons.search,
                                             color: kContentColorLightTheme

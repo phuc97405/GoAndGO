@@ -7,7 +7,7 @@ import 'package:location/location.dart';
 
 class HomeController extends GetxController {
   final controllerApp = Get.find<AppController>();
-  Completer<GoogleMapController> controllerGoogle = Completer();
+  GoogleMapController? controllerGoogle;
   int selectionTabIndex = 0;
   Marker? listmarkers;
 
@@ -27,24 +27,17 @@ class HomeController extends GetxController {
     update();
   }
 
-  CameraPosition kGooglePlex = CameraPosition(
+  CameraPosition initialLocation = CameraPosition(
     target: LatLng(10.85446819267671, 106.62622449789902),
-    zoom: 10.0,
+    zoom: 14.0,
   );
 
-  // CameraPosition kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(37.43296265331129, -122.08832357078792),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
-
   void currentLocation() async {
-    final GoogleMapController controllergg = await controllerGoogle.future;
     LocationData currentLocation;
     var location = new Location();
     currentLocation = await location.getLocation();
 
-    controllergg.animateCamera(CameraUpdate.newCameraPosition(
+    controllerGoogle!.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
         bearing: 0,
         target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
@@ -75,5 +68,9 @@ class HomeController extends GetxController {
         infoWindow: InfoWindow(title: 'my infdo'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
         position: pos);
+  }
+
+  focusChange() {
+    Get.toNamed('/searchadress');
   }
 }

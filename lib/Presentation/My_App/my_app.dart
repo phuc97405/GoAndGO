@@ -5,6 +5,8 @@ import 'package:goandgo/Presentation/Auth/Welcome/welcome.dart';
 import 'package:goandgo/Presentation/Auth/Welcome/welcome_binding.dart';
 import 'package:goandgo/Presentation/Auth/signin_or_signup.dart';
 import 'package:goandgo/Presentation/Auth/signin_or_signup_binding.dart';
+import 'package:goandgo/Presentation/Home/SearchAdress/search_adress.dart';
+import 'package:goandgo/Presentation/Home/SearchAdress/search_adress_binding.dart';
 import 'package:goandgo/Presentation/Home/home.dart';
 import 'package:goandgo/Presentation/Home/home_binding.dart';
 import 'package:goandgo/Presentation/My_App/app_binding.dart';
@@ -39,6 +41,10 @@ class _MyAppState extends State<MyApp> {
           ),
           GetPage(
               name: '/home', page: () => HomePage(), binding: HomeBinding()),
+          GetPage(
+              name: '/searchadress',
+              page: () => SearchAdress(),
+              binding: SearchAdressBinding()),
         ]);
   }
 }
