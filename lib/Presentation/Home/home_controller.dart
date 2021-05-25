@@ -15,7 +15,6 @@ class HomeController extends GetxController {
   Location locationTracker = Location();
   GoogleMapController? controllerMap;
   int selectionTabIndex = 0;
-  Marker? listmarkers;
   Marker? marker;
   Circle? circle;
 
@@ -27,6 +26,9 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    if (locationSubscription != null) {
+      locationSubscription!.cancel();
+    }
     super.onClose();
   }
 
@@ -37,13 +39,14 @@ class HomeController extends GetxController {
 
   CameraPosition initialLocation = CameraPosition(
     target: LatLng(10.85446819267671, 106.62622449789902),
-    zoom: 14.0,
+    zoom: 12.0,
   );
 
   void currentLocation() async {
     try {
       Uint8List imageData = await getMarker();
       var location = await locationTracker.getLocation();
+
       updateMarkerAndCircle(location, imageData);
 
       if (locationSubscription != null) {
@@ -56,7 +59,7 @@ class HomeController extends GetxController {
             CameraPosition(
               bearing: 192.8334901395799,
               target: LatLng(newLocalData.latitude!, newLocalData.longitude!),
-              zoom: 18.0,
+              zoom: 16.0,
             ),
           ));
           updateMarkerAndCircle(newLocalData, imageData);
@@ -70,9 +73,6 @@ class HomeController extends GetxController {
   }
 
   Future<Uint8List> getMarker() async {
-    // final Response response = await get("");
-    // icon = await BitmapDescriptor.fromBytes(response.bodyBytes);
-
     ByteData byteData = await rootBundle.load('assets/icons/motoIcon.png');
     return byteData.buffer.asUint8List();
   }

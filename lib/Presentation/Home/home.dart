@@ -44,7 +44,7 @@ class HomePage extends GetView<HomeController> {
                 onMapCreated: (GoogleMapController controllergg) {
                   controller.controllerMap = controllergg;
                 },
-                myLocationEnabled: true,
+                // myLocationEnabled: true,
                 myLocationButtonEnabled: false,
                 zoomControlsEnabled: false,
                 markers: Set.of(
@@ -202,8 +202,6 @@ class HomePage extends GetView<HomeController> {
               ),
             )
           ]),
-          // ))
-          // ),
         ));
   }
 }
