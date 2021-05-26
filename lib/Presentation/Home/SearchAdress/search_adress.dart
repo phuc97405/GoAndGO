@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:goandgo/Presentation/Home/SearchAdress/search_adress_controller.dart';
-import 'package:goandgo/Presentation/constants.dart';
+import 'package:goandgo/components/constants.dart';
 import 'package:goandgo/components/primary_button.dart';
 
 class SearchAdress extends GetView<SearchAdressController> {

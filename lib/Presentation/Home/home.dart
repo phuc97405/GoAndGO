@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:goandgo/Presentation/Home/home_controller.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
-import 'package:goandgo/Presentation/constants.dart';
-import 'package:goandgo/Presentation/custom_bottom.dart';
+import 'package:goandgo/components/constants.dart';
+import 'package:goandgo/components/custom_bottom.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 double width = MediaQueryData.fromWindow(window).size.width;
@@ -49,8 +49,8 @@ class HomePage extends GetView<HomeController> {
                 zoomControlsEnabled: false,
                 markers: Set.of(
                     (controller.marker != null) ? [controller.marker!] : []),
-                circles: Set.of(
-                    (controller.circle != null) ? [controller.circle!] : []),
+                // circles: Set.of(
+                //     (controller.circle != null) ? [controller.circle!] : []),
                 onTap: (value) => {
                       // FocusScope.of(context).requestFocus(FocusNode()),
                       // controller.addMarkers(value)

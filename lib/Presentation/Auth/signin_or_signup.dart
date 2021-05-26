@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:goandgo/Presentation/Auth/signin_or_signup_controller.dart';
-import 'package:goandgo/Presentation/constants.dart';
+import 'package:goandgo/components/constants.dart';
 import 'package:goandgo/components/primary_button.dart';
 
 class SignInAndSignUp extends GetView<SignInOrSigUpController> {
