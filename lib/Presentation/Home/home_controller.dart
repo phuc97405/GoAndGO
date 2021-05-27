@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:goandgo/Presentation/Home/home.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
 import 'package:goandgo/components/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -20,10 +21,14 @@ class HomeController extends GetxController {
   Marker? marker;
   Circle? circle;
   ui.Image? image;
+  Widget? widget = HomePage();
+  List<Widget> myWidget = [
+    // Map(controller),
+  ];
 
   @override
   void onInit() {
-    loadImage('assets/images/splash.png');
+    loadImage('assets/images/user.jpg');
     currentLocation();
     super.onInit();
   }
@@ -46,7 +51,7 @@ class HomeController extends GetxController {
   Future currentLocation() async {
     try {
       var location = await locationTracker.getLocation();
-      final Uint8List markerIcon = await getBytesFromCanvas(150, 150);
+      final Uint8List markerIcon = await getBytesFromCanvas(200, 200);
       await updateMarkerAndCircle(location, markerIcon);
       if (locationSubscription != null) {
         locationSubscription!.cancel();
@@ -101,23 +106,23 @@ class HomeController extends GetxController {
   Future<Uint8List> getBytesFromCanvas(int width, int height) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
-    final Paint paint = Paint()..color = Colors.blue;
-    final Radius radius = Radius.circular(20.0);
-    // canvas.drawImage(image!, Offset.fromDirection(0.0, 0.0), paint);
-    // canvas.drawRRect(
-    //     RRect.fromRectAndCorners(
-    //       Rect.fromLTWH(0.0, 0.0, width.toDouble(), height.toDouble()),
-    //       topLeft: radius,
-    //       topRight: radius,
-    //       bottomLeft: radius,
-    //       bottomRight: radius,
-    //     ),
-    //     paint);
-    canvas.drawImage(image!, Offset.zero, paint);
+    Radius radius = Radius.circular(20);
+
+    final Paint paint = Paint()..color = kPrimaryColor;
+    canvas.drawRRect(
+        RRect.fromRectAndCorners(
+          Rect.fromLTWH(0.0, 0.0, width.toDouble(), height.toDouble()),
+          topLeft: radius,
+          topRight: radius,
+          bottomLeft: radius,
+          bottomRight: radius,
+        ),
+        paint);
     TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
     painter.text = TextSpan(
       text: 'PhucLee',
-      style: TextStyle(fontSize: 25.0, color: Colors.white),
+      style: TextStyle(
+          fontSize: 35.0, color: Colors.white, fontWeight: FontWeight.bold),
     );
     painter.layout();
     painter.paint(
@@ -134,5 +139,21 @@ class HomeController extends GetxController {
     final bytes = data.buffer.asUint8List();
     final image = await decodeImageFromList(bytes);
     this.image = image;
+    print(image);
+  }
+
+  void changeIndexTabBottom(int index) {
+    switch (index) {
+      case 0:
+        break;
+        widget = HomePage();
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      default:
+    }
   }
 }
