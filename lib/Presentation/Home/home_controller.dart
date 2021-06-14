@@ -32,8 +32,14 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     await currentLocation();
-    getWeatherApi(latitude, longitude);
+    callApiWeather();
     super.onInit();
+  }
+
+  void callApiWeather() async {
+    await getWeatherApi(latitude!, longitude!)
+        .then((value) => controllerApp.temp!.value = value.toString());
+    print(controllerApp.temp!.value);
   }
 
   @override
@@ -55,7 +61,8 @@ class HomeController extends GetxController {
     try {
       // loadImage('assets/images/user.jpg');
       final locationCurrent = await locationTracker.getLocation();
-      final Uint8List markerIcon = await getBytesFromCanvas(200, 200);
+      final Uint8List markerIcon = await getBytesFromCanvas(
+          (height * 0.15).toInt(), (height * 0.15).toInt());
       await updateMarkerAndCircle(locationCurrent, markerIcon);
       if (locationSubscription != null) {
         locationSubscription!.cancel();
@@ -120,7 +127,7 @@ class HomeController extends GetxController {
     painter.text = TextSpan(
       text: 'PhucLee',
       style: TextStyle(
-          fontSize: 35.0, color: Colors.white, fontWeight: FontWeight.bold),
+          fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold),
     );
     painter.layout();
     painter.paint(

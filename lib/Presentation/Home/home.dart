@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,22 +23,23 @@ class HomePage extends GetView<HomeController> {
               ? Obx(() => Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(controllerApp.temp.toString()),
+                      Icon(Icons.cloud_queue_sharp),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        controllerApp.temp.toString() + ' °C',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ],
                   ))
               : Center(
                   child: SizedBox(
                   height: 25,
                   width: 25,
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  ),
+                  child: Icon(Icons.cloud_off_outlined),
                 )),
           actions: [
-            // controllerApp.temp != null && controllerApp.weatherMain != null
-            //     ?
-
-            // : CircularProgressIndicator(),
             Padding(
               padding: EdgeInsets.only(right: kDefaultPadding),
               child: CircleAvatar(
@@ -74,7 +74,6 @@ class HomePage extends GetView<HomeController> {
                       heightFactor: 0.7,
                       child: FloatingActionButton(
                           onPressed: () {
-                            // controllerApp.boolLocationDevice();
                             controller.currentLocation();
                           },
                           backgroundColor: kContentColorDarkTheme,

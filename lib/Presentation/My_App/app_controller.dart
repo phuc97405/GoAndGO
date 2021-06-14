@@ -9,8 +9,7 @@ class AppController extends GetxController {
   AccessToken? accessToken;
   RxBool checking = true.obs;
   loc.Location locationR = loc.Location();
-  double? temp;
-  String? weatherMain;
+  RxString? temp = ''.obs;
 
   @override
   void onInit() {
