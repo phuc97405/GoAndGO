@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:goandgo/components/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -15,7 +16,7 @@ class Map extends StatelessWidget {
   Widget build(Object context) {
     return Stack(
       children: [
-        GoogleMap(
+        Obx(() => GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: controller.initialLocation,
             trafficEnabled: true,
@@ -25,14 +26,12 @@ class Map extends StatelessWidget {
             // myLocationEnabled: true,
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
-            markers:
-                Set.of((controller.marker != null) ? [controller.marker!] : []),
-            // circles: Set.of(
-            //     (controller.circle != null) ? [controller.circle!] : []),
+            markers: controller.customMarkers.toSet(),
+            // Set.of((controller.marker != null) ? [controller.marker!] : []),
             onTap: (value) => {
                   // FocusScope.of(context).requestFocus(FocusNode()),
                   // controller.addMarkers(value)
-                }),
+                })),
         Positioned(
             left: 0,
             top: 0,

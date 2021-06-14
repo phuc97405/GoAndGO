@@ -8,7 +8,7 @@ import 'package:goandgo/Presentation/Home/home_controller.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
 import 'package:goandgo/components/constants.dart';
 import 'package:goandgo/components/custom_bottom.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 double width = MediaQueryData.fromWindow(window).size.width;
 double height = MediaQueryData.fromWindow(window).size.height;
@@ -20,7 +20,26 @@ class HomePage extends GetView<HomeController> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: Icon(Icons.menu_open),
+          title: controllerApp.temp != null
+              ? Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(controllerApp.temp.toString()),
+                    ],
+                  ))
+              : Center(
+                  child: SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  ),
+                )),
           actions: [
+            // controllerApp.temp != null && controllerApp.weatherMain != null
+            //     ?
+
+            // : CircularProgressIndicator(),
             Padding(
               padding: EdgeInsets.only(right: kDefaultPadding),
               child: CircleAvatar(

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:goandgo/Api/get_weather_api.dart';
 import 'package:goandgo/Presentation/Home/home.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
 import 'package:goandgo/components/constants.dart';
@@ -18,18 +19,20 @@ class HomeController extends GetxController {
   Location locationTracker = Location();
   GoogleMapController? controllerMap;
   int selectionTabIndex = 0;
-  Marker? marker;
+  RxList<Marker> customMarkers = RxList.empty();
   Circle? circle;
   ui.Image? image;
   Widget? widget = HomePage();
   List<Widget> myWidget = [
     // Map(controller),
   ];
+  String? latitude;
+  String? longitude;
 
   @override
-  void onInit() {
-    loadImage('assets/images/user.jpg');
-    currentLocation();
+  void onInit() async {
+    await currentLocation();
+    getWeatherApi(latitude, longitude);
     super.onInit();
   }
 
@@ -50,9 +53,10 @@ class HomeController extends GetxController {
 
   Future currentLocation() async {
     try {
-      var location = await locationTracker.getLocation();
+      // loadImage('assets/images/user.jpg');
+      final locationCurrent = await locationTracker.getLocation();
       final Uint8List markerIcon = await getBytesFromCanvas(200, 200);
-      await updateMarkerAndCircle(location, markerIcon);
+      await updateMarkerAndCircle(locationCurrent, markerIcon);
       if (locationSubscription != null) {
         locationSubscription!.cancel();
       }
@@ -78,25 +82,19 @@ class HomeController extends GetxController {
   Future updateMarkerAndCircle(
       LocationData newLocalData, Uint8List imageData) async {
     LatLng latLng = LatLng(newLocalData.latitude!, newLocalData.longitude!);
-    marker = Marker(
-      markerId: MarkerId('myMarker'),
+    latitude = newLocalData.latitude.toString();
+    longitude = newLocalData.longitude.toString();
+    var itemMarker = Marker(
+      markerId: MarkerId('myLocation'),
       position: latLng,
       rotation: 0,
-      //  newLocalData.heading!,
       draggable: false,
       zIndex: 2,
       flat: false,
       anchor: Offset(0.5, 0.5), //toa do marker lay
       icon: BitmapDescriptor.fromBytes(imageData),
     );
-
-    // circle = Circle(
-    //     circleId: CircleId('myCircle'),
-    //     radius: newLocalData.accuracy!,
-    //     zIndex: 1,
-    //     strokeColor: kPrimaryColor,
-    //     center: latLng,
-    //     fillColor: kPrimaryColor.withAlpha(70));
+    customMarkers.add(itemMarker);
   }
 
   focusChange() {
@@ -134,13 +132,12 @@ class HomeController extends GetxController {
     return data!.buffer.asUint8List();
   }
 
-  Future loadImage(String path) async {
-    final data = await rootBundle.load(path);
-    final bytes = data.buffer.asUint8List();
-    final image = await decodeImageFromList(bytes);
-    this.image = image;
-    print(image);
-  }
+  // void loadImage(String path) async {
+  //   var data = await rootBundle.load(path);
+  //   var bytes = data.buffer.asUint8List();
+  //   var image = await decodeImageFromList(bytes);
+  //   this.image = image;
+  // }
 
   void changeIndexTabBottom(int index) {
     switch (index) {
