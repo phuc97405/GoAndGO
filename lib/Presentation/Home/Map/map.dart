@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:goandgo/Presentation/My_App/app_controller.dart';
 import 'package:goandgo/components/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:get/get.dart';
 
 double width = MediaQueryData.fromWindow(window).size.width;
 double height = MediaQueryData.fromWindow(window).size.height;
@@ -14,6 +16,7 @@ class Map extends StatelessWidget {
   final controller;
   @override
   Widget build(Object context) {
+    final controllerApp = Get.find<AppController>();
     return Stack(
       children: [
         Obx(() => GoogleMap(
@@ -53,10 +56,22 @@ class Map extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                'Hi PhucLee',
-                                style: TextStyle(color: kContentColorDarkTheme),
-                              ),
+                              RichText(
+                                  text: TextSpan(children: [
+                                TextSpan(
+                                    text: 'Hi ',
+                                    style:
+                                        TextStyle(fontSize: kDefaultPadding)),
+                                TextSpan(
+                                    text: controllerApp.nameStatus.toString(),
+                                    style: TextStyle(
+                                        fontSize: kDefaultPadding,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: ' !',
+                                    style:
+                                        TextStyle(fontSize: kDefaultPadding)),
+                              ])),
                               Text(
                                 'Bạn muốn đi đâu ?',
                                 textAlign: TextAlign.left,

@@ -46,7 +46,9 @@ class HomePage extends GetView<HomeController> {
                 backgroundColor: kContentColorDarkTheme,
                 child: CircleAvatar(
                     radius: 18,
-                    backgroundImage: AssetImage('assets/images/user.jpg')),
+                    backgroundImage: NetworkImage(controllerApp.imageUrl!.value)
+                    // : AssetImage('assets/images/user.jpg')
+                    ),
                 radius: 20,
               ),
             ),

@@ -10,10 +10,12 @@ class AppController extends GetxController {
   RxBool checking = true.obs;
   loc.Location locationR = loc.Location();
   RxString? temp = ''.obs;
+  RxString? nameStatus = ''.obs;
+  RxString? imageUrl = ''.obs;
 
   @override
-  void onInit() {
-    permission();
+  void onInit() async {
+    // await permission();
     checkIfIsLogged();
     // boolLocationDevice();
     super.onInit();
@@ -50,18 +52,22 @@ class AppController extends GetxController {
     if (accessToken != null) {
       print("is Logged:::: ${prettyPrint(accessToken.toJson())}");
       var userData = await FacebookAuth.instance.getUserData();
-      print('dataaaa: $userData');
+      print('UserData : $userData');
       accessToken = accessToken;
       userData = userData;
+      var array = userData['name'].toString().split(' ');
+      nameStatus!.value = array[array.length - 1].trim();
+      imageUrl!.value = userData['picture']['data']['url'].toString();
+      print('urllll: $imageUrl');
       Get.toNamed('/home');
     }
   }
 
-  Future permission() async {
-    if (await Permission.contacts.request().isGranted) {}
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.location,
-    ].request();
-    print('permission location:  ${statuses[Permission.location]}');
-  }
+  // Future permission() async {
+  //   if (await Permission.contacts.request().isGranted) {}
+  //   Map<Permission, PermissionStatus> statuses = await [
+  //     Permission.location,
+  //   ].request();
+  //   print('permission location:  ${statuses[Permission.location]}');
+  // }
 }

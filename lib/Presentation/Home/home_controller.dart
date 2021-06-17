@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import 'package:goandgo/Api/get_weather_api.dart';
 import 'package:goandgo/Presentation/Home/home.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
@@ -32,11 +33,11 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     await currentLocation();
-    callApiWeather();
+    await callApiWeather();
     super.onInit();
   }
 
-  void callApiWeather() async {
+  Future callApiWeather() async {
     await getWeatherApi(latitude!, longitude!)
         .then((value) => controllerApp.temp!.value = value.toString());
     print(controllerApp.temp!.value);
@@ -60,6 +61,9 @@ class HomeController extends GetxController {
   Future currentLocation() async {
     try {
       // loadImage('assets/images/user.jpg');
+      if (controllerApp.temp!.value == '') {
+        callApiWeather();
+      }
       final locationCurrent = await locationTracker.getLocation();
       final Uint8List markerIcon = await getBytesFromCanvas(
           (height * 0.15).toInt(), (height * 0.15).toInt());
@@ -125,7 +129,7 @@ class HomeController extends GetxController {
         paint);
     TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
     painter.text = TextSpan(
-      text: 'PhucLee',
+      text: controllerApp.nameStatus.toString(),
       style: TextStyle(
           fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold),
     );
