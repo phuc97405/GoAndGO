@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:goandgo/Api/get_weather_api.dart';
+import 'package:goandgo/Presentation/Home/Map/map.dart';
 import 'package:goandgo/Presentation/Home/home.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
 import 'package:goandgo/components/constants.dart';
@@ -16,6 +17,8 @@ import 'package:location/location.dart';
 
 class HomeController extends GetxController {
   final controllerApp = Get.find<AppController>();
+  final GlobalKey<MapState> myWidget = GlobalKey<MapState>();
+
   StreamSubscription? locationSubscription;
   Location locationTracker = Location();
   GoogleMapController? controllerMap;
@@ -23,10 +26,15 @@ class HomeController extends GetxController {
   RxList<Marker> customMarkers = RxList.empty();
   Circle? circle;
   ui.Image? image;
-  Widget? widget = HomePage();
-  List<Widget> myWidget = [
-    // Map(controller),
-  ];
+  RxInt? indexTabBottom = 0.obs;
+
+  // List<Widget> myWidget = [
+  //   Map(
+  //     key: myWidget,
+  //     customMarkers: customMarkers,
+  //   )
+  //   // Map(controller),
+  // ];
   String? latitude;
   String? longitude;
 
@@ -60,13 +68,12 @@ class HomeController extends GetxController {
 
   Future currentLocation() async {
     try {
-      // loadImage('assets/images/user.jpg');
       if (controllerApp.temp!.value == '') {
         callApiWeather();
       }
       final locationCurrent = await locationTracker.getLocation();
       final Uint8List markerIcon = await getBytesFromCanvas(
-          (height * 0.15).toInt(), (height * 0.15).toInt());
+          (Get.height * 0.15).toInt(), (Get.height * 0.15).toInt());
       await updateMarkerAndCircle(locationCurrent, markerIcon);
       if (locationSubscription != null) {
         locationSubscription!.cancel();
@@ -153,15 +160,20 @@ class HomeController extends GetxController {
   void changeIndexTabBottom(int index) {
     switch (index) {
       case 0:
+        indexTabBottom!.value = 0;
         break;
-        widget = HomePage();
       case 1:
+        indexTabBottom!.value = 1;
         break;
       case 2:
+        indexTabBottom!.value = 2;
         break;
+
       case 3:
+        indexTabBottom!.value = 3;
         break;
       default:
+        indexTabBottom!.value = 0;
     }
   }
 }

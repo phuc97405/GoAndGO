@@ -11,9 +11,20 @@ import 'package:get/get.dart';
 double width = MediaQueryData.fromWindow(window).size.width;
 double height = MediaQueryData.fromWindow(window).size.height;
 
-class Map extends StatelessWidget {
-  const Map({Key? key, required this.controller}) : super(key: key);
-  final controller;
+class Map extends StatefulWidget {
+  final customMarkers;
+  Map({Key? key, this.customMarkers});
+  @override
+  MapState createState() => MapState(customMarkers: this.customMarkers);
+}
+
+class MapState extends State<Map> {
+  CameraPosition initialLocation = CameraPosition(
+    target: LatLng(10.85446819267671, 106.62622449789902),
+    zoom: 12.0,
+  );
+  final customMarkers;
+  MapState({this.customMarkers});
   @override
   Widget build(Object context) {
     final controllerApp = Get.find<AppController>();
@@ -21,16 +32,14 @@ class Map extends StatelessWidget {
       children: [
         Obx(() => GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: controller.initialLocation,
+            initialCameraPosition: initialLocation,
             trafficEnabled: true,
             onMapCreated: (GoogleMapController controllergg) {
-              controller.controllerMap = controllergg;
+              // controller.controllerMap = controllergg;
             },
-            // myLocationEnabled: true,
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
-            markers: controller.customMarkers.toSet(),
-            // Set.of((controller.marker != null) ? [controller.marker!] : []),
+            markers: customMarkers.toSet(),
             onTap: (value) => {
                   // FocusScope.of(context).requestFocus(FocusNode()),
                   // controller.addMarkers(value)
@@ -97,7 +106,7 @@ class Map extends StatelessWidget {
                             autofocus: false,
                             textAlign: TextAlign.left,
                             onTap: () {
-                              controller.focusChange();
+                              Get.toNamed('/searchadress');
                             },
                             decoration: InputDecoration(
                                 labelStyle: TextStyle(

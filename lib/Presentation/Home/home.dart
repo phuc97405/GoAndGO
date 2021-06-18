@@ -59,7 +59,7 @@ class HomePage extends GetView<HomeController> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Stack(children: [
-            Map(controller: controller),
+            // Map(controller: controller),
             Positioned(
               left: 0,
               bottom: 0,
