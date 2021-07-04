@@ -1,23 +1,23 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:location/location.dart' as loc;
 
 class AppController extends GetxController {
   Map<String, dynamic>? userData;
   AccessToken? accessToken;
   RxBool checking = true.obs;
-  loc.Location locationR = loc.Location();
-  RxString? temp = ''.obs;
   RxString? nameStatus = ''.obs;
   RxString? imageUrl = ''.obs;
+  RxString? long = ''.obs;
+  RxString? lat = ''.obs;
+  RxInt? temp = 0.obs;
 
   @override
   void onInit() async {
-    // await permission();
-    checkIfIsLogged();
-    // boolLocationDevice();
+    await permission();
+    // checkIfIsLogged();
     super.onInit();
   }
 
@@ -40,12 +40,6 @@ class AppController extends GetxController {
     Get.toNamed('/auth');
   }
 
-  // Future boolLocationDevice() async {
-  //   if (!await locationR.serviceEnabled()) {
-  //     locationR.requestService();
-  //   }
-  // }
-
   Future<void> checkIfIsLogged() async {
     var accessToken = await FacebookAuth.instance.accessToken;
     checking.value = false;
@@ -63,11 +57,11 @@ class AppController extends GetxController {
     }
   }
 
-  // Future permission() async {
-  //   if (await Permission.contacts.request().isGranted) {}
-  //   Map<Permission, PermissionStatus> statuses = await [
-  //     Permission.location,
-  //   ].request();
-  //   print('permission location:  ${statuses[Permission.location]}');
-  // }
+  Future permission() async {
+    if (await Permission.contacts.request().isGranted) {}
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+    ].request();
+    print('permission location:  ${statuses[Permission.location]}');
+  }
 }

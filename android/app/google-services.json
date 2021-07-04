@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1056352648575",
+    "project_id": "go-and-go-314104",
+    "storage_bucket": "go-and-go-314104.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056352648575:android:d4eb25422d5825450dae4a",
+        "android_client_info": {
+          "package_name": "com.example.goandgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056352648575-2406cor2fg4360kmfu28ab7caiiofbai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhYBXjHod2kiktAD1urojnluLjCOwoUQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056352648575-2406cor2fg4360kmfu28ab7caiiofbai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,7 @@ import 'package:goandgo/Presentation/Home/SearchAdress/search_adress.dart';
 import 'package:goandgo/Presentation/Home/SearchAdress/search_adress_binding.dart';
 import 'package:goandgo/Presentation/Home/home.dart';
 import 'package:goandgo/Presentation/Home/home_binding.dart';
+import 'package:goandgo/Presentation/Home/wrapper.dart';
 import 'package:goandgo/Presentation/My_App/app_binding.dart';
 import 'package:goandgo/Presentation/theme.dart';
 
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         getPages: [
           GetPage(
               name: '/',
-              page: () => Welcome(),
+              page: () => Wrapper(),
               binding: WelcomeBinding(),
               transition: Transition.leftToRight),
           GetPage(

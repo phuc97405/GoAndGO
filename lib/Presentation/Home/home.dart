@@ -19,26 +19,26 @@ class HomePage extends GetView<HomeController> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: Icon(Icons.menu_open),
-          title: controllerApp.temp != null
-              ? Obx(() => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.cloud_queue_sharp),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        controllerApp.temp.toString() + ' °C',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ))
+          title: Obx(() => controllerApp.temp!.value != 0
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.cloud_queue_sharp),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      controllerApp.temp.toString() + ' °C',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                )
               : Center(
                   child: SizedBox(
                   height: 25,
                   width: 25,
                   child: Icon(Icons.cloud_off_outlined),
-                )),
+                ))),
           actions: [
             Padding(
               padding: EdgeInsets.only(right: kDefaultPadding),
@@ -59,7 +59,8 @@ class HomePage extends GetView<HomeController> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Stack(children: [
-            // Map(controller: controller),
+            // Map(),
+            controller.myWidget[controller.indexTabBottom!.value],
             Positioned(
               left: 0,
               bottom: 0,
@@ -91,14 +92,18 @@ class HomePage extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.changeIndexTabBottom(0);
+                              },
                               icon: Icon(
                                 Icons.home,
                                 color: kContentColorDarkTheme,
                                 size: kDefaultPadding,
                               )),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.changeIndexTabBottom(1);
+                              },
                               icon: Icon(
                                 Icons.people,
                                 color: kContentColorDarkTheme,
@@ -108,14 +113,18 @@ class HomePage extends GetView<HomeController> {
                             width: width * 0.04,
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.changeIndexTabBottom(2);
+                              },
                               icon: Icon(
                                 Icons.call,
                                 color: kContentColorDarkTheme,
                                 size: kDefaultPadding,
                               )),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.changeIndexTabBottom(3);
+                              },
                               icon: Icon(
                                 Icons.account_box,
                                 color: kContentColorDarkTheme,

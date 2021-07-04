@@ -7,58 +7,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:goandgo/Api/get_weather_api.dart';
 import 'package:goandgo/Presentation/Home/Map/map.dart';
-import 'package:goandgo/Presentation/Home/home.dart';
+import 'package:goandgo/Presentation/Home/SearchAdress/search_adress.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
 import 'package:goandgo/components/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart' as geo;
 
 class HomeController extends GetxController {
   final controllerApp = Get.find<AppController>();
-  final GlobalKey<MapState> myWidget = GlobalKey<MapState>();
+  bool? serviceEnabled;
+  geo.LocationPermission? permission;
+  StreamSubscription<geo.Position>? _positionStreamSubscription;
 
-  StreamSubscription? locationSubscription;
-  Location locationTracker = Location();
   GoogleMapController? controllerMap;
-  int selectionTabIndex = 0;
   RxList<Marker> customMarkers = RxList.empty();
   Circle? circle;
   ui.Image? image;
   RxInt? indexTabBottom = 0.obs;
 
-  // List<Widget> myWidget = [
-  //   Map(
-  //     key: myWidget,
-  //     customMarkers: customMarkers,
-  //   )
-  //   // Map(controller),
-  // ];
-  String? latitude;
-  String? longitude;
+  RxList<Widget> myWidget = [Map(), SearchAdress()].obs;
 
   @override
   void onInit() async {
     await currentLocation();
-    await callApiWeather();
     super.onInit();
-  }
-
-  Future callApiWeather() async {
-    await getWeatherApi(latitude!, longitude!)
-        .then((value) => controllerApp.temp!.value = value.toString());
-    print(controllerApp.temp!.value);
   }
 
   @override
   void onClose() {
     super.onClose();
-  }
-
-  void changeTabBottom(int index) {
-    selectionTabIndex = index;
-    update();
   }
 
   CameraPosition initialLocation = CameraPosition(
@@ -68,26 +46,21 @@ class HomeController extends GetxController {
 
   Future currentLocation() async {
     try {
-      if (controllerApp.temp!.value == '') {
-        callApiWeather();
-      }
-      final locationCurrent = await locationTracker.getLocation();
+      final locationCurrent = await geo.Geolocator.getCurrentPosition();
       final Uint8List markerIcon = await getBytesFromCanvas(
           (Get.height * 0.15).toInt(), (Get.height * 0.15).toInt());
       await updateMarkerAndCircle(locationCurrent, markerIcon);
-      if (locationSubscription != null) {
-        locationSubscription!.cancel();
-      }
-      locationSubscription =
-          locationTracker.onLocationChanged.listen((newLocalData) {
+
+      _positionStreamSubscription =
+          geo.Geolocator.getPositionStream().listen((geo.Position position) {
         if (controllerMap != null) {
           controllerMap!.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
-              target: LatLng(newLocalData.latitude!, newLocalData.longitude!),
+              target: LatLng(position.latitude, position.longitude),
               zoom: 16.0,
             ),
           ));
-          updateMarkerAndCircle(newLocalData, markerIcon);
+          updateMarkerAndCircle(position, markerIcon);
         }
       });
     } on PlatformException catch (e) {
@@ -98,10 +71,8 @@ class HomeController extends GetxController {
   }
 
   Future updateMarkerAndCircle(
-      LocationData newLocalData, Uint8List imageData) async {
-    LatLng latLng = LatLng(newLocalData.latitude!, newLocalData.longitude!);
-    latitude = newLocalData.latitude.toString();
-    longitude = newLocalData.longitude.toString();
+      geo.Position newLocalData, Uint8List imageData) async {
+    LatLng latLng = LatLng(newLocalData.latitude, newLocalData.longitude);
     var itemMarker = Marker(
       markerId: MarkerId('myLocation'),
       position: latLng,
@@ -150,13 +121,6 @@ class HomeController extends GetxController {
     return data!.buffer.asUint8List();
   }
 
-  // void loadImage(String path) async {
-  //   var data = await rootBundle.load(path);
-  //   var bytes = data.buffer.asUint8List();
-  //   var image = await decodeImageFromList(bytes);
-  //   this.image = image;
-  // }
-
   void changeIndexTabBottom(int index) {
     switch (index) {
       case 0:
@@ -177,3 +141,5 @@ class HomeController extends GetxController {
     }
   }
 }
+
+class LocationData {}
