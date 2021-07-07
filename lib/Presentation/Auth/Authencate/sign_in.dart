@@ -13,19 +13,32 @@ class SignIn extends StatelessWidget {
         elevation: 0.0,
         title: Text('Sign In'),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: TextButton(
-          child: Text('Sign In Anon'),
-          onPressed: () async {
-            dynamic result = await _auth.signInAnon();
-            if (result == null) {
-              print('sign in Error');
-            } else {
-              print('sign in $result');
-            }
-          },
-        ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            child: TextButton(
+              child: Text('Sign In Anon'),
+              onPressed: () async {
+                dynamic result = await _auth.signInAnon();
+                if (result == null) {
+                  print('sign in Error');
+                } else {
+                  print('sign in $result');
+                }
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            child: TextButton(
+              child: Text('Sign out'),
+              onPressed: () async {
+                await _auth.signOut();
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
