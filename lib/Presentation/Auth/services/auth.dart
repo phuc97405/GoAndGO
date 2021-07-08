@@ -7,7 +7,7 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInAnonymously();
 
-      print(result);
+      // print(result);
       return result;
     } catch (e) {
       print(e.toString());
@@ -22,5 +22,12 @@ class AuthService {
       print(e.toString());
       return null;
     }
+  }
+
+  Future loginWithEmail(email, password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } catch (e) {}
   }
 }

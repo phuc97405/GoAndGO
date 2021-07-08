@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goandgo/Presentation/Auth/Authencate/register.dart';
 import 'package:goandgo/Presentation/Auth/Authencate/sign_in.dart';
 
 class Authenticate extends StatelessWidget {
@@ -6,7 +7,7 @@ class Authenticate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: SignIn(),
+        child: RegisterState(),
       ),
     );
   }
