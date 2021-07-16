@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:goandgo/Presentation/Home/Map/map.dart';
 import 'package:goandgo/Presentation/Home/SearchAdress/search_adress.dart';
 import 'package:goandgo/Presentation/My_App/app_controller.dart';
-import 'package:goandgo/components/constants.dart';
+import 'package:goandgo/Shared/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 

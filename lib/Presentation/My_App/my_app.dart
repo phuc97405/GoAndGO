@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:goandgo/Presentation/Auth/Welcome/welcome.dart';
 import 'package:goandgo/Presentation/Auth/Welcome/welcome_binding.dart';
 import 'package:goandgo/Presentation/Auth/signin_or_signup.dart';
 import 'package:goandgo/Presentation/Auth/signin_or_signup_binding.dart';

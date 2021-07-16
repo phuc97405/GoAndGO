@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goandgo/components/constants.dart';
+import 'package:goandgo/Shared/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightThemeData(BuildContext context) {

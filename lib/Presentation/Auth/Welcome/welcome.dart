@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
-import 'package:goandgo/components/constants.dart';
 import 'package:get/get.dart';
+import 'package:goandgo/Shared/constants.dart';
 
 class Welcome extends GetView<GetxController> {
   Widget build(BuildContext context) {
